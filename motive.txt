@@ -1,3 +1,5 @@
 15 April 2024
 
 I want to start a Python DSA course but to be honest I'd like to know more first.
+1. Python Data Structures and Algorithms | https://www.geeksforgeeks.org/python-data-structures-and-algorithms/
+2. Data Structures and Algorithms in Python - Full Course for Beginners | https://www.youtube.com/watch?v=pkYVOmU3MgA
