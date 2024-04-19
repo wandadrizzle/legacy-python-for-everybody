@@ -36,9 +36,40 @@ counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
 for key in counts:
     if counts[key] > 10:
         print(key, counts[key])
+print()
+for key, value in counts.items():
+    if value > 10:
+        print(key, value)
 
 
-print("\nVideo Question: Counting Word Frequency using a Dictionary")
+#redoing the which-character appears the most question:
+print()
+sentence = "For example, the sun goes up and then it goes down. It just felt meant to be. But everytime that happens, what do you get? You get a new day. Hey girl, I brought home a few bottles of wine since I know you needed more corks for that pinterest project. I don't carry a gun. I give you five minutes when we get there. You have a shelf life as an actor, so you have to find another way to express yourself. I fantasized about robbing banks for a long time, ever since I was a kid."
+#print(dir(sentence)) #replace felt like a suitable method
+
+sentence = sentence.replace(" ", "").lower()
+sentence_list = list(sentence)
+#print(sentence_list) #debugging print
+
+most_frequent = None
+mf_count = None
+
+#chars = dict() #TypeError: 'dict' object is not callable
+chars = {}
+for char in sentence_list:
+    chars[char] = chars.get(char, 0) + 1 #The key to compact code!
+print(chars)
+
+for char, count in chars.items():
+    if mf_count is None or mf_count < count: #A max loop of sorts
+        mf_count = count
+        most_frequent = char
+
+print(f"The [{most_frequent}] appears {mf_count} times(s).")
+
+    
+
+print("\nVideo Question: Counting Word Frequency using a Dictionary") #DONE WITH NOTES!
 
 #The code walk-through can be found here https://www.youtube.com/watch?v=HqYAtchZrjE&t=2s
 exit()
