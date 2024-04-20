@@ -1,3 +1,23 @@
+print("Video - Tuples Part 1")
+d = dict()
+d['quincy'] = 1
+d['beau'] = 5
+d['kris'] = 9
+
+for (k,i) in d.items():
+    print(k, i)
+
+#Tuples are great for temporary variables. Tuples don't compare more than they have to, they compare left to right like in strings.
+print("\nVideo - Tuples Part 2, using list comprehensions.")
+counts = {
+    "apples" : 39, 
+    "carrots": 8,
+    'blueberries' : 85
+}
+print( sorted( [ (v,k) for k,v in counts.items() ], reverse=True ) ) #this uses lambdas
+print("\nVideo - Sorting a dictionary using tuples")
+exit()
+
 print("EXERCISE 1")
 
 
@@ -17,7 +37,7 @@ while True:
             split_line = line.split()
             if split_line[0] != "From": continue
             email = split_line[1]
-            addresses[email] = addresses.get(email, 0) +1
+            addresses[email] = addresses.get(email, 0) + 1 #idiom
     
         #print(addresses)
         email_list = []
@@ -30,7 +50,7 @@ while True:
         for key, val in email_list[:1]:
             print(val, key)
 
-        
+        fhand.close()
         print()
 
     except FileNotFoundError:
@@ -38,13 +58,106 @@ while True:
     except Exception as e:
         print(type(e), str(e))
 
-
-
-
 print("\nEXERCISE 2")
-print("\nEXERCISE 3")
+while True:
+   
+    try:
+        file_name = input("Enter file name: ")
+        if file_name.lower() == "done" : break
+        file_location = r'assets\files\{}'.format(file_name)
+        fhand = open(file_location, 'r')
 
-exit()
+        hours = {}
+        for line in fhand:
+            line = line.rstrip()
+            if not line.startswith('From'): continue
+            split_line = line.split()
+            if split_line[0] != "From": continue
+            time = split_line[5]
+            hour, minute, second = time.split(":")
+            time = hour, minute, second
+            #print(time)
+           
+            hours[hour] = hours.get(hour, 0) + 1
+
+        #print(hours)
+        hours_list = []
+        for k, v in hours.items():
+            hours_list.append((k, v))
+        
+        hours_list.sort()
+        for k, v in hours_list[:]:
+            print(k, v)
+        fhand.close()
+        print()
+
+    except FileNotFoundError:
+        print("File not found.")
+    except Exception as e:
+        print(type(e), str(e))
+
+print("\nEXERCISE 3")
+#https://en.wikipedia.org/wiki/Letter_frequency
+while True:
+   
+    try:
+        file_name = input("Enter file name: ")
+        if file_name.lower() == "done" : break
+        file_location = r'assets\text-samples\{}'.format(file_name)
+        fhand = open(file_location, 'r', encoding='utf-8')
+
+        characters = {}
+        import string
+
+        chars_to_remove = string.punctuation + string.digits + string.whitespace 
+        #print(chars_to_remove)
+        count = 0
+        for line in fhand:
+            line = line.strip().lower()
+            #print(line)
+            line = line.translate(str.maketrans("", "", chars_to_remove))
+            for word in line:
+                characters[word] = characters.get(word, 0) + 1
+                count += 1
+        #print(characters)
+        char_list = []
+        u_count = 0
+        for k, v in characters.items():
+            char_list.append((v, k))
+            u_count += 1
+        
+        char_list.sort(reverse=True)
+        #print(char_list)
+        print(f"I counted a total of {count} letters, and the three most common letters are:")
+        for v, k in char_list[:3]:
+            percentage = (v / count) * 100
+            print(k, v, "{:.2f}".format(percentage))
+        print()
+        """
+        #These are the most frequent letters, taken from Wikipedia on the 19th of April 2024
+                english_f = ("e", 12.702 ) #Close second: ("t", 9.056)
+                german_f = ("e", 16.396) #Close second: ("n", 9.776)
+                portuguese_f = ("a", 14.364) #Close second: ("e", 12.570)
+        """
+        file_name = file_name.split(".")
+        language = file_name[0]
+
+        if language == "english":
+            print(f"Wiki says that letters 'e' and 't' appear the most in the {language}  language.")
+        elif language == "german":
+            print(f"Wiki says that letters 'e' and 'n' appear the most in the {language}  language.")
+        elif language == "portuguese":
+            print(f"Wiki says that letters 'a' and 'e' appear the most in the {language} language.")
+        else:
+            print(f"I don't have a tidbit to add about {language} character frequency.")
+        fhand.close()
+        print()
+
+    except FileNotFoundError:
+        print("File not found.\n")
+    except Exception as e:
+        print(type(e), str(e), "\n")
+
 print("Tuples - immutable lists\n")
 
 #We can now make a list of dictionaries that have a tuple as a value.
